@@ -1,0 +1,102 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 9, 2015, 12:24:58 PM
+    Author     : Elena
+*/
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+
+}
+
+img{
+    display: block;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1{
+   text-align: center;
+   font-size: 2em;
+}
+
+h2{
+    text-indent: 2em;
+}
+
+section{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid crimson;
+    width: 85%;
+    
+}
+p{
+    padding-left: 2em;
+}
+
+footer {
+  border-top: 2px solid #000099;
+  text-indent:2em;
+
+}
+
+.book{
+    width: 200%;
+}
+
+form { 
+    width:60%;
+    display: table;  
+    border-spacing: 2em 0.5em;
+    padding-left:2em;
+    text-align: left;
+}
+
+p{ 
+    display: table-row; 
+    margin-bottom: 2em;
+   
+}
+label { 
+    display: table-cell; 
+}
+input { 
+    display: table-cell;
+    width:140%;
+  
+}
+
+a{
+    padding-left:2em;
+    
+}
+
+.butt{
+    width:100%;
+   
+
+}
+
+.reg{
+    margin-bottom:0.75em;
+    width:90%;
+    display:block;
+}
+
+table{
+   border-spacing: 2em 0.5em;
+   padding-left:2em;
+
+
+}
+
+th{
+    text-align: left;
+}
