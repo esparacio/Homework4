@@ -7,11 +7,9 @@ package edu.servlet;
 
 import edu.business.ConnectionPool;
 import edu.business.SQLUtil;
-import edu.business.User;
 import edu.data.UserDB;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,19 +39,14 @@ public class management extends HttpServlet {
             throws ServletException, IOException {
        
         String url = "/manage.jsp";
-        
-        // get current action
         String action = request.getParameter("action");
         if (action == null) {
-            action = "join";  // default action
+            action = "join";  
         }
-
-        // perform action and set URL to appropriate page
         if (action.equals("join")) {
-            url = "/index.jsp";    // the "join" page
+            url = "/index.jsp";    
         } 
         if (action.equals("delete")){
-            System.out.println("test to see communication");
             String email = request.getParameter("id");
             System.out.println(email);
             try {
@@ -65,34 +58,23 @@ public class management extends HttpServlet {
         }
         else if (action.equals("add")) {
         url = "/manage.jsp";
+        
         String sqlResult = "bob";
         try{
-            
-            //.openshift directory 
-            //String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
-            //DB_HOST , DB_PORT, DB_PASSWORD
-            //String host = System.getenv("OPENSHIFT_MYSQL_HOST:);
-            //Use context.xml in .openshift directory 
-            //Line 34
-            
             Class.forName("com.mysql.jdbc.Driver");
 //              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
 //              String username= "root";
 //              String password= "sesame";
-//                String dbURL = "jdbc:mysql://127.0.01:3307/library";
-//                String username= "adminpPZdzW4";
-//                String password = "_W_Gusvg84yP";
-//              Connection connection = DriverManager.getConnection(dbURL,username,password);
-              
-                ConnectionPool pool = ConnectionPool.getInstance();
+//               Connection connection = DriverManager.getConnection(dbURL,username,password);
+
+            ConnectionPool pool = ConnectionPool.getInstance();
             Connection connection = pool.getConnection() ;
-              
-              Statement statement = connection.createStatement();
-              String query = "SELECT CONCAT(firstName,' ', lastName) AS 'Patron Name',"
+            Statement statement = connection.createStatement();
+            String query = "SELECT CONCAT(firstName,' ', lastName) AS 'Patron Name',"
                       + " CONCAT(emailAddress,'') AS 'Email Address', CONCAT(bookTitle,'') AS 'Book Title', CONCAT(date,'') AS 'Due Date' "
-                      + "FROM librarystuff.library;";
+                      + "FROM library.librarystuff;";
               
-              ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
             try {
                 sqlResult= SQLUtil.getHTMLTable(resultSet);
             } catch (ParseException ex) {

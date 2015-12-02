@@ -5,9 +5,8 @@
         <group>
             <file>file:/Users/Elena/NetBeansProjects/Homework4/web/META-INF/context.xml</file>
             <file>file:/Users/Elena/NetBeansProjects/Homework4/src/java/edu/data/UserDB.java</file>
-            <file>file:/Users/Elena/NetBeansProjects/Homework4/nbproject/build-impl.xml</file>
-            <file>file:/Users/Elena/NetBeansProjects/Homework4/src/java/edu/business/ConnectionPool.java</file>
-            <file>file:/Users/Elena/NetBeansProjects/Homework4/web/thanks.jsp</file>
+            <file>file:/Users/Elena/NetBeansProjects/Homework4/web/checkout.jsp</file>
+            <file>file:/Users/Elena/NetBeansProjects/Homework4/web/manage.jsp</file>
             <file>file:/Users/Elena/NetBeansProjects/Homework4/src/java/edu/servlet/management.java</file>
         </group>
     </open-files>

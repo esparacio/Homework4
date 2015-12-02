@@ -8,7 +8,6 @@ package edu.data;
 import edu.business.ConnectionPool;
 import edu.business.User;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,11 +23,13 @@ public class UserDB {
 //              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
 //              String username= "root";
 //              String password= "sesame";
-//
+//            
 //              Connection connection = DriverManager.getConnection(dbURL,username,password);
+              
+              
             ConnectionPool pool = ConnectionPool.getInstance();
             Connection connection = pool.getConnection() ;
-              String query = "INSERT INTO library (firstName, lastName, emailAddress, bookTitle, date)" +
+              String query = "INSERT INTO library.librarystuff (firstName, lastName, emailAddress, bookTitle, date)" +
                       "VALUES ('"+ user.getFirstName() + "', " +
                       "'" + user.getLastName() + "', " +
                       "'" + user.getEmailAddress() + "', " +
@@ -37,18 +38,14 @@ public class UserDB {
              Statement statement2 = connection.createStatement();
              int result2 = statement2.executeUpdate(query);
             pool.freeConnection(connection);
-statement2.close();
+            statement2.close();
             connection.close();
           }
           catch(SQLException e){
               for(Throwable t : e)
                   t.printStackTrace();
           }
-          
-         
-          
-          
-          
+
         return 0;
     }
        public static long delete(String email) throws ClassNotFoundException {
@@ -63,9 +60,9 @@ statement2.close();
             Connection connection = pool.getConnection() ;
               Statement statement = connection.createStatement();
               ResultSet results = statement.executeQuery(
-                 "SELECT * FROM librarystuff.library"
+                 "SELECT * FROM library.librarystuff"
           );
-              String query = "DELETE FROM librarystuff.library WHERE emailAddress = '"+email+"';";  
+              String query = "DELETE FROM library.librarystuff WHERE emailAddress = '"+email+"';";  
              Statement statement2 = connection.createStatement();
              int result2 = statement2.executeUpdate(query);
            statement2.close();
