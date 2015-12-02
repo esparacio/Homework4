@@ -5,6 +5,7 @@
  */
 package edu.data;
 
+import edu.business.ConnectionPool;
 import edu.business.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,14 +21,13 @@ public class UserDB {
           try{
               Class.forName("com.mysql.jdbc.Driver");
               
-//              String dbURL = "jdbc:mysql://127.0.01:3307/library";
-//                String username= "adminpPZdzW4";
-//                String password = "_W_Gusvg84yP";
-              
-              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
-              String username= "root";
-              String password= "sesame";
-              Connection connection = DriverManager.getConnection(dbURL,username,password);
+//              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
+//              String username= "root";
+//              String password= "sesame";
+//
+//              Connection connection = DriverManager.getConnection(dbURL,username,password);
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection() ;
               String query = "INSERT INTO library (firstName, lastName, emailAddress, bookTitle, date)" +
                       "VALUES ('"+ user.getFirstName() + "', " +
                       "'" + user.getLastName() + "', " +
@@ -36,7 +36,9 @@ public class UserDB {
                       "'" +user.getDueDate() + "')";
              Statement statement2 = connection.createStatement();
              int result2 = statement2.executeUpdate(query);
-                      
+            pool.freeConnection(connection);
+statement2.close();
+            connection.close();
           }
           catch(SQLException e){
               for(Throwable t : e)
@@ -52,10 +54,13 @@ public class UserDB {
        public static long delete(String email) throws ClassNotFoundException {
           try{
               Class.forName("com.mysql.jdbc.Driver");
-              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
-              String username= "root";
-              String password= "sesame";
-              Connection connection = DriverManager.getConnection(dbURL,username,password);
+//              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
+//              String username= "root";
+//              String password= "sesame";
+//              Connection connection = DriverManager.getConnection(dbURL,username,password);
+              
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection() ;
               Statement statement = connection.createStatement();
               ResultSet results = statement.executeQuery(
                  "SELECT * FROM librarystuff.library"
@@ -63,8 +68,10 @@ public class UserDB {
               String query = "DELETE FROM librarystuff.library WHERE emailAddress = '"+email+"';";  
              Statement statement2 = connection.createStatement();
              int result2 = statement2.executeUpdate(query);
-                      
-      
+           statement2.close();
+            connection.close();
+                  pool.freeConnection(connection);
+
 
           }
           catch(SQLException e){

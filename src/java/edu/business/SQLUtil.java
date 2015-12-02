@@ -6,6 +6,11 @@
 package edu.business;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -14,7 +19,7 @@ import java.sql.*;
 public class SQLUtil {
 
 
-    public static String getHTMLTable(ResultSet resultSet)  throws SQLException{
+    public static String getHTMLTable(ResultSet resultSet)  throws SQLException, ParseException{
         
         StringBuilder htmlTable = new StringBuilder();
         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -39,6 +44,20 @@ public class SQLUtil {
             htmlTable.append(resultSet.getString(i));
             htmlTable.append("</td>");
         }
+            String date = resultSet.getString(4);
+            DateFormat format = new SimpleDateFormat("MM-dd-yyyy",Locale.ENGLISH);
+            java.util.Date overdue = format.parse(date);
+            java.util.Date today = Calendar.getInstance().getTime();
+            if (overdue.after(today)){
+                htmlTable.append("<td>No</td>");
+            }
+            else{
+                htmlTable.append("<td>Yes</td>");
+            }
+            
+            
+            
+          
             String email = resultSet.getString(2);
             htmlTable.append("<td> <form action=\"management\" method=\"post\">\n" +
 "        <input type=\"hidden\" name=\"action\" value=\"delete\"> <input type=\"hidden\" name=\"id\" value="+email+">  <input class= \"butt\" type=\"submit\" value=\"Check In\"></td></form>");

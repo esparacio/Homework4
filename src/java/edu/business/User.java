@@ -22,6 +22,7 @@ public class User implements Serializable {
    private String date;
    private String duedate;
 
+
     public User() {
         firstName = "";
         lastName = "";
@@ -87,5 +88,6 @@ public class User implements Serializable {
     public void setDueDate(String duedate){
         this.duedate = duedate;
     }
+   
 
 }

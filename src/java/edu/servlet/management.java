@@ -5,6 +5,7 @@
  */
 package edu.servlet;
 
+import edu.business.ConnectionPool;
 import edu.business.SQLUtil;
 import edu.business.User;
 import edu.data.UserDB;
@@ -14,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -74,13 +76,16 @@ public class management extends HttpServlet {
             //Line 34
             
             Class.forName("com.mysql.jdbc.Driver");
-              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
-              String username= "root";
-              String password= "sesame";
+//              String dbURL = "jdbc:mysql://localhost:3306/librarystuff";
+//              String username= "root";
+//              String password= "sesame";
 //                String dbURL = "jdbc:mysql://127.0.01:3307/library";
 //                String username= "adminpPZdzW4";
 //                String password = "_W_Gusvg84yP";
-              Connection connection = DriverManager.getConnection(dbURL,username,password);
+//              Connection connection = DriverManager.getConnection(dbURL,username,password);
+              
+                ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection() ;
               
               Statement statement = connection.createStatement();
               String query = "SELECT CONCAT(firstName,' ', lastName) AS 'Patron Name',"
@@ -88,7 +93,12 @@ public class management extends HttpServlet {
                       + "FROM librarystuff.library;";
               
               ResultSet resultSet = statement.executeQuery(query);
-              sqlResult= SQLUtil.getHTMLTable(resultSet);
+            try {
+                sqlResult= SQLUtil.getHTMLTable(resultSet);
+            } catch (ParseException ex) {
+                Logger.getLogger(management.class.getName()).log(Level.SEVERE, null, ex);
+            }
+              
               resultSet.close();
         }   catch (ClassNotFoundException ex) {
                 Logger.getLogger(management.class.getName()).log(Level.SEVERE, null, ex);

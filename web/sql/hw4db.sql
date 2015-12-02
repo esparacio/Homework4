@@ -1,10 +1,10 @@
 
-DROP DATABASE IF EXISTS library;
-CREATE DATABASE library;
+DROP DATABASE IF EXISTS librarystuff;
+CREATE DATABASE librarystuff;
 
 USE library;
 
-CREATE TABLE librarystuff
+CREATE TABLE library
 (
 	firstName	VARCHAR(45),
     lastName	VARCHAR(45),
